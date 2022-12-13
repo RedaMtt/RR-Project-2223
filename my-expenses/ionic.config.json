@@ -1,0 +1,7 @@
+{
+  "name": "My expenses",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
