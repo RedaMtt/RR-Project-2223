@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package be.electryshop.electry;
 
 import com.getcapacitor.BridgeActivity;
 
