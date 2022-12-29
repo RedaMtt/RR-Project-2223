@@ -12,13 +12,13 @@
         </ion-toolbar>
       </ion-header>
       <ion-grid>
-        <ion-row>
+        <ion-row id="test">
           <ion-col offset="1" size="3" size-md="4" size-lg="2">Day</ion-col>
-          <ion-col class="daySpending" size="6" size-md="4" size-lg="2">0,00</ion-col>
+          <ion-col id="daySpending" size="6" size-md="4" size-lg="2"><ion-text >0,00</ion-text></ion-col>
           <ion-col offset="1" size="3" size-md="4" size-lg="2">Month</ion-col>
-          <ion-col class="monthSpending" size="6" size-md="4" size-lg="2">0,00</ion-col>
+          <ion-col id="monthSpending" size="6" size-md="4" size-lg="2">0,00</ion-col>
           <ion-col offset="1" size="3" size-md="4" size-lg="2">Year</ion-col>
-          <ion-col class="yearSpending" size="3" size-md="1" size-lg="2">0,00</ion-col>
+          <ion-col id="yearSpending" size="6" size-md="1" size-lg="2">0,00</ion-col>
         </ion-row>
       </ion-grid>
       <ion-grid>
@@ -45,7 +45,7 @@
               <ion-icon :icon="analytics" />
             </ion-button>
           </ion-col>
-          <ion-col size="">
+          <ion-col size="4">
             <ion-button expand="block" color="dark">
               <ion-icon :icon="bookmark" />
             </ion-button>
@@ -75,7 +75,7 @@
         </ion-row>
         <ion-row class="ion-justify-content-around">
           <ion-col size="12">
-            <ion-button expand="block" color="dark">
+            <ion-button expand="block" color="dark" @click="verzendProduct()">
               Income/Revenue
             </ion-button>
           </ion-col>
@@ -95,6 +95,7 @@ ion-button {
   --border-color: rgb(103, 103, 103);
   --border-style: solid;
   --margin-width: 20px;
+  height: 4.5em;
 }
 </style>
 
@@ -119,6 +120,15 @@ export default defineComponent({
       help,
       bookmark
     }
+  },
+  methods: {
+    verzendProduct() {
+      let day = document.getElementById("test")
+      day.innerhtml = "<ion-col>Day</ion-col>";
+      console.log(day.innerhtml)
+    }
   }
 });
+
+
 </script>
