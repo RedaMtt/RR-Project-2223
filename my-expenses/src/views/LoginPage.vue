@@ -39,16 +39,7 @@
   
 <script>
 import { defineComponent } from 'vue';
-import HomePage from '@/views/Home.vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonItem, IonLabel, IonNote } from '@ionic/vue';
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'Home',
-    component: HomePage,
-  },
-];
 
 export default defineComponent({
     name: 'LoginPage',
@@ -93,9 +84,6 @@ export default defineComponent({
 
       markTouched() {
         this.$refs.item.$el.classList.add('ion-touched')
-      },
-      goToHome(){
-        this.route.navigate([routes[0]]);
       }
     },
 
