@@ -20,18 +20,32 @@ const routes = [
       },
       {
         path: 'home',
+        name: 'HomePage',
         component: () => import('@/views/Home.vue')
       },
       {
-        path: 'tab2',
+        path: 'register',
+        name: 'RegisterPage',
+        component: () => import('@/views/Register.vue')
+      },
+      {
+        path: 'spendings',
+        name: 'SpendingsPage',
         component: () => import('@/views/Spendings.vue')
       },
       {
-        path: 'tab3',
+        path: 'transactions',
+        name: 'TransactionsPage',
         component: () => import('@/views/Transactions.vue')
       },
       {
-        path: 'tab4',
+        path: 'transaction',
+        name: 'TransactionPage',
+        component: () => import('@/views/Transaction.vue')
+      },
+      {
+        path: 'settings',
+        name: 'SettingsPage',
         component: () => import('@/views/Settings.vue')
       }
     ]

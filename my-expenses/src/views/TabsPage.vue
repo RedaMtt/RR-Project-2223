@@ -8,17 +8,17 @@
           <ion-label>Home</ion-label>
         </ion-tab-button>
           
-        <ion-tab-button tab="Spendings" href="/tabs/tab2">
+        <ion-tab-button tab="Spendings" href="/tabs/spendings">
           <ion-icon :icon="pricetags" />
           <ion-label>Spendings</ion-label>
         </ion-tab-button>
         
-        <ion-tab-button tab="Transactions" href="/tabs/tab3">
+        <ion-tab-button tab="Transactions" href="/tabs/transactions">
           <ion-icon :icon="card" />
           <ion-label>Transactions</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="Settings" href="/tabs/tab4">
+        <ion-tab-button tab="Settings" href="/tabs/settings">
           <ion-icon :icon="settings" />
           <ion-label>Settings</ion-label>
         </ion-tab-button>

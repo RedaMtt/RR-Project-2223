@@ -3,9 +3,6 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Home</ion-title>
-        <ion-avatar size="small" slot="end">
-          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-        </ion-avatar>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -37,7 +34,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue
 
 export default defineComponent({
   name: 'Tab1Page',
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage }
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage },
 });
 
 
