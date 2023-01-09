@@ -56,7 +56,7 @@ let opties = {
 };
 
 export default defineComponent({
-  name: 'LoginPage',
+  name: 'RegisterPage',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonItem, IonLabel, IonNote },
   methods: {
     registerUser() {

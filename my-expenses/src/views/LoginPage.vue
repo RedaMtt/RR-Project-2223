@@ -33,6 +33,7 @@
       <ion-button @Click="getUserId()" expand="" color="dark">
         <ion-text />test<ion-text />
       </ion-button>
+      <ion-text id="alert" >hey</ion-text>
     </ion-content>
   </ion-page>
 </template>
@@ -42,23 +43,23 @@
 import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonItem, IonLabel, IonNote } from '@ionic/vue';
 
+let UserId = 1;
 let baseApiAddress = `https://electryshop.be/my-expenses/src/api/`;
 let alertEl = document.getElementById("alert");
 let opties = {
-  method: "POST", // *GET, POST, PUT, DELETE, etc.
+  method: "GET", // *GET, POST, PUT, DELETE, etc.
   mode: "cors", // no-cors, *cors, same-origin
   cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
   credentials: "omit", // include, *same-origin, omit
-  headers: "Access-Control-Allow-Origin"
 };
+
+export { UserId }
 
 export default defineComponent({
   name: 'LoginPage',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonItem, IonLabel, IonNote },
   methods: {
     loginUser() {
-      console.log(document.getElementById("Email").value)
-      console.log(document.getElementById("Password").value)
       let url = baseApiAddress + "Login.php";
       opties.body = JSON.stringify({
         Email: document.getElementById("Email").value,
@@ -75,6 +76,7 @@ export default defineComponent({
           }
           let list = responseData.data;
           if (list.length > 0) {
+            console.log(list)
             this.$router.push({
               name: 'HomePage'
             });

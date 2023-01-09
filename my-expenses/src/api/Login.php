@@ -5,7 +5,6 @@ header('Access-Control-Max-Age: 1000');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 
 define ('INDEX', true);
-
 require 'inc/dbcon.php';
 require 'inc/base.php';
 

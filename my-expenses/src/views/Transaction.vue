@@ -27,7 +27,7 @@
 
       <ion-item counter="true">
         <ion-label position="fixed">Amount</ion-label>
-        <ion-input id="amount" clear-input maxlength="12" placeholder="0.00"></ion-input>
+        <ion-input type="number" id="amount" clear-input maxlength="12" placeholder="0.00"></ion-input>
       </ion-item>
 
       <ion-item counter="true">
@@ -64,7 +64,6 @@ import { UserId } from './LoginPage.vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 
 let baseApiAddress = `https://electryshop.be/my-expenses/src/api/`;
-let alertEl = document.getElementById("alert");
 let opties = {
   method: "POST", // *GET, POST, PUT, DELETE, etc.
   mode: "cors", // no-cors, *cors, same-origin
@@ -113,12 +112,14 @@ export default defineComponent({
             alert("regsitration failed : Probeer opnieuw");
           }
         })
-        .catch(function (error) {
-          console.log("/tabs/home");
-          alertEl.innerHTML = "fout : " + error;
+        .catch(function () {
+          console.log("error");
         });
         
       }
+    },
+    test(){
+      console.log(UserId)
     }
   }
 });
