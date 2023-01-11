@@ -5,7 +5,7 @@
         <ion-button slot="start" size="small" class="backBtn" color="white" href="/tabs/home">
           back
         </ion-button>
-        <ion-title>Transaction</ion-title>
+        <ion-title>Income</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -15,27 +15,12 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-item>
-        <ion-label position="fixed">Category</ion-label>
-        <ion-label id="category">none</ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-label position="fixed">Pick date</ion-label>
-        <ion-datetime id="date" display-format:="DD/MM/YY" presentation="date-time"></ion-datetime>
-      </ion-item>
-
       <ion-item counter="true">
         <ion-label position="fixed">Amount</ion-label>
         <ion-input type="number" id="amount" clear-input maxlength="12" placeholder="0.00"></ion-input>
       </ion-item>
 
-      <ion-item counter="true">
-        <ion-label position="fixed">description</ion-label>
-        <ion-input id="comment" clear-input maxlength="120" placeholder="Coffee from starbucks"></ion-input>
-      </ion-item>
-
-      <ion-button class="sendBtn" @click="sendTransaction()">
+      <ion-button class="sendBtn" @click="sendIncome()">
         Send
       </ion-button>
 
@@ -80,18 +65,12 @@ export default defineComponent({
     }
   },
   methods: {
-    sendTransaction() {
+    sendIncome() {
 
-      if (document.getElementById("date").value.split('T')[0] != undefined && document.getElementById("amount").value != "") {
-        console.log(document.getElementById("date").value.split('T')[0])
-        console.log(document.getElementById("amount").value)
-        console.log(document.getElementById("comment").value)
-        console.log(UserId)
-        let url = baseApiAddress + "TransactionAdd.php";
+      if (this.comment != "") {
+        let url = baseApiAddress + "Income.php";
         opties.body = JSON.stringify({
-          Amount: document.getElementById("amount").value,
-          Date: document.getElementById("date").value.split('T')[0],
-          Comment: document.getElementById("comment").value
+          Balance: this.comment
         });
         console.log(opties);
         fetch(url, opties)

@@ -73,7 +73,8 @@ export default defineComponent({
           return response.json();
         })
         .then(function (responseData) {
-          if (responseData.status < 200 || responseData.status > 299) {
+          if (responseData.status < 200 || responseData.status > 299)
+          {
             alert("Probleem met registreren, Probeer opnieuw");
             return;
           }

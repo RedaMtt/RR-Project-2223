@@ -11,19 +11,7 @@
           <ion-title size="large">Home</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-list>
-        <ion-item>
-          <ion-item slot="start">€10,00</ion-item>
-          <ion-item slot="end">Fruit</ion-item>
-        </ion-item>
-
-        <ion-item>
-          <ion-item slot="start">€100,00</ion-item>
-          <ion-label>Banaanhangwagen</ion-label>
-          <ion-item slot="end">Groente</ion-item>
-        </ion-item>
-
-      </ion-list>
+      <canvas id="myChart"></canvas>
     </ion-content>
   </ion-page>
 </template>
@@ -31,6 +19,28 @@
 <script>
 import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { Chart } from 'chart.js';
+
+const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 
 export default defineComponent({
   name: 'Tab1Page',

@@ -44,6 +44,11 @@ const routes = [
         component: () => import('@/views/Transaction.vue')
       },
       {
+        path: 'income',
+        name: 'IncomePage',
+        component: () => import('@/views/Income.vue')
+      },
+      {
         path: 'settings',
         name: 'SettingsPage',
         component: () => import('@/views/Settings.vue')

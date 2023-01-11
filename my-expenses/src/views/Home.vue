@@ -75,7 +75,7 @@
         </ion-row>
         <ion-row class="ion-justify-content-around">
           <ion-col size="12">
-            <ion-button id="income" expand="block" color="dark" @click="test()">
+            <ion-button id="income" expand="block" color="dark" @click="incomeAdd()">
               Income/Revenue
             </ion-button>
           </ion-col>
@@ -128,7 +128,8 @@ export default defineComponent({
     }
   },
   methods: {
-    verzendProduct() {
+    incomeAdd() {
+      
     },
     test(){
       console.log("hey")

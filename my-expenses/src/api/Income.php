@@ -8,11 +8,11 @@ define ('INDEX', true);
 require 'inc/dbcon.php';
 require 'inc/base.php';
 
-if(!$stmt = $conn->prepare("Select Username, Email, Password, Id from User WHERE Email = ? and Password = ?")){
+if(!$stmt = $conn->prepare("insert into User (Id, Balance) values (?,?)")){
     die('{"error":"Prepared Statement failed on prepare","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
 }
 
-if(!$stmt -> bind_param("ss", $postvars['Email'], $postvars['Password'])){
+if(!$stmt -> bind_param("id", htmlentities($postvars['Id']), htmlentities($postvars['Balance']))){
     die('{"error":"Prepared Statement bind failed on bind","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
 }
 $stmt -> execute();
@@ -21,7 +21,7 @@ if($conn->affected_rows == 0) {
     $stmt -> close();
     die('{"error":"Prepared Statement failed on execute : no rows affected","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
 }
-// added
+
 $stmt -> close();
 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
 ?>
