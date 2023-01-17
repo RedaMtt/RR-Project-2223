@@ -8,11 +8,11 @@ define ('INDEX', true);
 require 'inc/dbcon.php';
 require 'inc/base.php';
 
-if(!$stmt = $conn->prepare("insert into User (Id, Balance) values (?,?)")){
+if(!$stmt = $conn->prepare("UPDATE User SET Balance = ? WHERE Id = ?")){
     die('{"error":"Prepared Statement failed on prepare","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
 }
 
-if(!$stmt -> bind_param("id", htmlentities($postvars['Id']), htmlentities($postvars['Balance']))){
+if(!$stmt -> bind_param("id", $postvars['Balance'], $postvars['Id'])){
     die('{"error":"Prepared Statement bind failed on bind","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
 }
 $stmt -> execute();

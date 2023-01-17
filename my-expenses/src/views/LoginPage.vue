@@ -21,7 +21,7 @@
         <ion-input v-model="Password" type="password" @ionInput="valid" @ionBlur="markTouch"></ion-input>
         <ion-note class="alert" slot="error">Password length must be higher than 8</ion-note>
       </ion-item>
-      <ion-button @Click="registerUser()" expand="" color="dark">
+      <ion-button @Click="loginUsers()" expand="" color="dark">
         <ion-text />Login<ion-text />
       </ion-button>
       <ion-button href="/tabs/register" expand="" color="dark">
@@ -36,17 +36,16 @@
     </ion-content>
   </ion-page>
 </template>
-
+<!-- eslint-disable no-unused-vars -->
   
 <script>
 import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonInput, IonItem, IonLabel, IonNote } from '@ionic/vue';
 
-/*let UserId;
-let Username;*/
+let UserId;
+let UserName;
 
 let baseApiAddress = `https://electryshop.be/my-expenses/src/api/`;
-let alertEl = document.getElementById("alert");
 let opties = {
   method: "POST", // *GET, POST, PUT, DELETE, etc.
   mode: "cors", // no-cors, *cors, same-origin
@@ -58,11 +57,13 @@ export default defineComponent({
   name: 'LoginPage',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonItem, IonLabel, IonNote },
   methods: {
-    registerUser() {
+    loginUsers() {
+      let self = this
       let url = baseApiAddress + "Login.php";
+      console.log(this.Email)
       opties.body = JSON.stringify({
-        Email: this.email,
-        Password: this.password
+        Email: this.Email,
+        Password: this.Password
       });
       fetch(url, opties)
         .then(function (response) {
@@ -70,19 +71,22 @@ export default defineComponent({
         })
         .then(function (responseData) {
           if (responseData.status < 200 || responseData.status > 299) {
-            alert("Probleem met registreren, Probeer opnieuw");
+            alert("Wrong Combination, Probeer opnieuw");
             return;
           }
           let list = responseData.data;
           if (list.length > 0) {
-            console.log(responseData)
-            /*this.$router.push({ path: '/tabs/home' });*/
+            localStorage.setItem('UserId', list[0].Id);
+            localStorage.setItem('UserName', list[0].Username);
+            console.log(list[0].Username)
+            self.$router.push({ path: '/tabs/home' });
           } else {
-            alert("regsitration failed : Probeer opnieuw");
+            console.log(responseData)
+            alert("Wrong Combination, Probeer opnieuw");
           }
         })
         .catch(function (error) {
-          alertEl.innerHTML = "fout : " + error;
+          console.log(error)
         });
     },
     loginUser() {
@@ -106,7 +110,8 @@ export default defineComponent({
           .then(response => response.json())
           .then(responseData => {
             this.data = responseData;
-            console.log(responseData)
+            console.log(JSON.stringify())
+            console.log(responseData.Id)
             /*this.$router.push({ path: '/tabs/home' });*/
           })
           .catch(error => {

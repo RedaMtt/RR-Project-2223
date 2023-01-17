@@ -17,7 +17,9 @@
 
       <ion-item>
         <ion-label position="fixed">Category</ion-label>
-        <ion-label id="category">none</ion-label>
+        <ion-select interface="action-sheet" placeholder="Select fruit">
+          <ion-select-option value="apples">Apples</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-item>
@@ -86,9 +88,11 @@ export default defineComponent({
         console.log(document.getElementById("date").value.split('T')[0])
         console.log(document.getElementById("amount").value)
         console.log(document.getElementById("comment").value)
-        console.log(UserId)
+        console.log(localStorage.getItem('UserId'))
         let url = baseApiAddress + "TransactionAdd.php";
         opties.body = JSON.stringify({
+          CategoryId: 1,
+          UserId: localStorage.getItem('UserId'),
           Amount: document.getElementById("amount").value,
           Date: document.getElementById("date").value.split('T')[0],
           Comment: document.getElementById("comment").value

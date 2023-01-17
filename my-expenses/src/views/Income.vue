@@ -9,18 +9,22 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 3</ion-title>
-        </ion-toolbar>
-      </ion-header>
 
       <ion-item counter="true">
         <ion-label position="fixed">Amount</ion-label>
-        <ion-input type="number" id="amount" clear-input maxlength="12" placeholder="0.00"></ion-input>
+        <ion-input type="number" ref="id" clear-input maxlength="12" placeholder="0.00"></ion-input>
+      </ion-item>
+
+      <ion-item counter="true">
+        <ion-label position="fixed">Amount</ion-label>
+        <ion-input type="number" ref="amount" clear-input maxlength="12" placeholder="0.00"></ion-input>
       </ion-item>
 
       <ion-button class="sendBtn" @click="sendIncome()">
+        Send
+      </ion-button>
+
+      <ion-button class="sendBtn" @click="test()">
         Send
       </ion-button>
 
@@ -57,20 +61,20 @@ let opties = {
 }
 
 export default defineComponent({
-  name: 'transactionPage',
+  name: 'incomePage',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage },
   setup() {
     return {
-
+      
     }
   },
   methods: {
     sendIncome() {
 
-      if (this.comment != "") {
         let url = baseApiAddress + "Income.php";
         opties.body = JSON.stringify({
-          Balance: this.comment
+          Id: this.$refs.id.value,
+          Balance: this.$refs.amount.value
         });
         console.log(opties);
         fetch(url, opties)
@@ -93,8 +97,6 @@ export default defineComponent({
             console.log(error);
             console.log("error");
           });
-
-      }
     },
     test() {
       console.log(UserId)

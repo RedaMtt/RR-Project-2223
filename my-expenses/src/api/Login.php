@@ -15,13 +15,21 @@ if(!$stmt = $conn->prepare("Select Username, Email, Password, Id from User WHERE
 if(!$stmt -> bind_param("ss", $postvars['Email'], $postvars['Password'])){
     die('{"error":"Prepared Statement bind failed on bind","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
 }
-$stmt -> execute();
+$stmt ->  execute();
+$result = $stmt->get_result();
 
-if($conn->affected_rows == 0) {
-    $stmt -> close();
-    die('{"error":"Prepared Statement failed on execute : no rows affected","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
+if (!$result) {
+    $response['code'] = 7;
+    $response['status'] = $api_response_code[$response['code']]['HTTP Response'];
+    $response['data'] = $conn->error;
+    deliver_response($response);
 }
-// added
+
+$response['data'] = getJsonObjFromResult($result);
+$result->free();
+$conn->close();
+deliver_JSONresponse($response);
+
 $stmt -> close();
 die('{"data":"ok","message":"Record added successfully","status":"ok"}');
 ?>
