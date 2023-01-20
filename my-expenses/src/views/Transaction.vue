@@ -17,9 +17,7 @@
 
       <ion-item>
         <ion-label position="fixed">Category</ion-label>
-        <ion-select interface="action-sheet" placeholder="Select fruit">
-          <ion-select-option value="apples">Apples</ion-select-option>
-        </ion-select>
+        <ion-select interface="action-sheet" id="Category" placeholder="Select Category"></ion-select>
       </ion-item>
 
       <ion-item>
@@ -62,9 +60,9 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { UserId } from './LoginPage.vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 
+let CategoryId = document.getElementById("Category")
 let baseApiAddress = `https://electryshop.be/my-expenses/src/api/`;
 let opties = {
   method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -76,6 +74,25 @@ let opties = {
 export default defineComponent({
   name: 'transactionPage',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage },
+  mounted() {
+    
+    console.log(CategoryId.value)
+    let url = 'https://electryshop.be/my-expenses/src/api/Category.php';
+
+
+    fetch(url)
+      .then(response => response.json())
+      .then(responseData => {
+        this.data = responseData;
+        let Category = responseData.data
+        for (let i = 0; i < Category.length; i++) {
+          document.getElementById("Category").innerHTML += `<ion-select-option value="${Category[i].Id}">${Category[i].Name}</ion-select-option>`
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
   setup() {
     return {
 
@@ -83,15 +100,11 @@ export default defineComponent({
   },
   methods: {
     sendTransaction() {
-
-      if (document.getElementById("date").value.split('T')[0] != undefined && document.getElementById("amount").value != "") {
-        console.log(document.getElementById("date").value.split('T')[0])
-        console.log(document.getElementById("amount").value)
-        console.log(document.getElementById("comment").value)
-        console.log(localStorage.getItem('UserId'))
+      let self = this
+      if (document.getElementById("date").value.split('T')[0] != undefined && document.getElementById("amount").value != "" && CategoryId.value != 0) {
         let url = baseApiAddress + "TransactionAdd.php";
         opties.body = JSON.stringify({
-          CategoryId: 1,
+          CategoryId: document.getElementById("Category").value,
           UserId: localStorage.getItem('UserId'),
           Amount: document.getElementById("amount").value,
           Date: document.getElementById("date").value.split('T')[0],
@@ -109,20 +122,16 @@ export default defineComponent({
             }
             let list = responseData.data;
             if (list.length > 0) {
-              console.log(responseData.data);
+              self.$router.push({ path: '/tabs/home' });
             } else {
               alert("regsitration failed : Probeer opnieuw");
             }
           })
           .catch(function (error) {
             console.log(error);
-            console.log("error");
           });
 
       }
-    },
-    test() {
-      console.log(UserId)
     }
   }
 });

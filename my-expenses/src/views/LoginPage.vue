@@ -60,7 +60,6 @@ export default defineComponent({
     loginUsers() {
       let self = this
       let url = baseApiAddress + "Login.php";
-      console.log(this.Email)
       opties.body = JSON.stringify({
         Email: this.Email,
         Password: this.Password
@@ -78,47 +77,14 @@ export default defineComponent({
           if (list.length > 0) {
             localStorage.setItem('UserId', list[0].Id);
             localStorage.setItem('UserName', list[0].Username);
-            console.log(list[0].Username)
             self.$router.push({ path: '/tabs/home' });
           } else {
-            console.log(responseData)
             alert("Wrong Combination, Probeer opnieuw");
           }
         })
         .catch(function (error) {
           console.log(error)
         });
-    },
-    loginUser() {
-      let url = 'https://electryshop.be/my-expenses/src/api/Login.php';
-      if (this.email != "" && this.password != "") {
-        let data = {
-          Email: this.email,
-          Password: this.password
-        };
-
-        let opties = {
-          method: "POST", // *GET, POST, PUT, DELETE, etc.
-          mode: "cors", // no-cors, *cors, same-origin
-          body: JSON.stringify(data),
-          cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: "omit", // include, *same-origin, omit
-        };
-
-
-        fetch(url, opties)
-          .then(response => response.json())
-          .then(responseData => {
-            this.data = responseData;
-            console.log(JSON.stringify())
-            console.log(responseData.Id)
-            /*this.$router.push({ path: '/tabs/home' });*/
-          })
-          .catch(error => {
-            console.log(error);
-          });
-      }
-
     },
 
     validateEmail(email) {

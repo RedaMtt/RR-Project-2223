@@ -8,9 +8,15 @@ define ('INDEX', true);
 require 'inc/dbcon.php';
 require 'inc/base.php';
 
-$sql="select Amount, Date, Comment FROM Transactions";
+if(!$stmt = $conn->prepare("select Amount, Date, Comment FROM Transactions WHERE UserId = ?")){
+    die('{"error":"Prepared Statement failed on prepare","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
+}
 
-$result = $conn -> query($sql);
+if(!$stmt -> bind_param("i", $postvars['UserId'], )){
+    die('{"error":"Prepared Statement bind failed on bind","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
+}
+$stmt ->  execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     $response['code'] = 7;
@@ -23,4 +29,7 @@ $response['data'] = getJsonObjFromResult($result);
 $result->free();
 $conn->close();
 deliver_JSONresponse($response);
+
+$stmt -> close();
+die('{"data":"ok","message":"Record added successfully","status":"ok"}');
 ?>

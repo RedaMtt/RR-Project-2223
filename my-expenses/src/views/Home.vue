@@ -8,20 +8,33 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-grid>
-        <ion-row v-model="test">
-          <ion-col offset="1" size="3" size-md="4" size-lg="2">Day</ion-col>
-          <ion-col v-model="daySpending" size="6" size-md="4" size-lg="2"><ion-text>0,00</ion-text></ion-col>
-          <ion-col offset="1" size="3" size-md="4" size-lg="2">Month</ion-col>
-          <ion-col v-model="monthSpending" size="6" size-md="4" size-lg="2">0,00</ion-col>
-          <ion-col offset="1" size="3" size-md="4" size-lg="2">Year</ion-col>
-          <ion-col v-model="yearSpending" size="6" size-md="1" size-lg="2">0,00</ion-col>
-          <ion-text v-model="Welcome">d</ion-text>
+        <ion-row>
+          <ion-col class="a">
+            <ion-label>Income</ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>Spent</ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label>Balance</ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="a">
+            <ion-label id="Income">Refresh</ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label id="Spent">Refresh</ion-label>
+          </ion-col>
+          <ion-col class="a">
+            <ion-label id="Balance">Refresh</ion-label>
+          </ion-col>
         </ion-row>
       </ion-grid>
       <ion-grid class="test">
         <ion-row class="ion-justify-content-around">
           <ion-col size="4">
-            <ion-button @click="test(e)" class="icon" id="person" v-model="person" expand="block" color="dark">
+            <ion-button href="/tabs/Transaction" class="icon" id="person" v-model="person" expand="block" color="dark">
               <ion-icon :icon="person" />
             </ion-button>
           </ion-col>
@@ -86,6 +99,13 @@
 </template>
 
 <style>
+.a {
+  display: flex;
+  justify-content: center;
+  background-color: rgb(41, 41, 41);
+  border: 2px rgb(26, 25, 25) solid;
+}
+
 .icon {
   font-size: 40px;
 }
@@ -109,17 +129,33 @@ import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonSelect, IonSelectOption } from '@ionic/vue';
 import { person, airplane, cart, car, analytics, pizza, shirt, cash, help, bookmark } from 'ionicons/icons';
 
-// eslint-disable-next-line no-unused-vars
-let icon = document.getElementsByClassName("icon")
-console.log(icon)
-/*localStorage.setItem('key', 'value');*/
 
 export default defineComponent({
   name: 'HomePage',
   // eslint-disable-next-line vue/no-unused-components
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonList, IonItem, IonSelect, IonSelectOption },
-  mount() {
-
+  mounted() {
+    let income = document.getElementById("Income")
+    let spent = document.getElementById("Spent")
+    let balance = document.getElementById("Balance")
+    let userid = localStorage.getItem('UserId') - 1
+    
+    let url = 'https://electryshop.be/my-expenses/src/api/UserGet.php'
+    fetch(url)
+      .then(response => response.json())
+      .then(responseData => {
+        this.data = responseData;
+        // eslint-disable-next-line no-unused-vars
+        let Income = responseData.data
+        let totalSpent = localStorage.getItem('TotalSpent')
+        income.innerHTML = Income[userid].Balance
+        spent.innerHTML = `-${totalSpent}`
+        let Balance = Income[userid].Balance - totalSpent
+        balance.innerHTML = Balance
+        localStorage.setItem('Income', Income[userid].Balance.toFixed(2));
+        localStorage.setItem('Balance', Balance.toFixed(2));
+        
+      });
   },
   setup() {
     return {
@@ -136,15 +172,6 @@ export default defineComponent({
     }
   },
   methods: {
-    incomeAdd() {
-
-    },
-    test(e) {
-      let className = e.target.className
-      console.log(className)
-
-      localStorage.setItem('Category', e.currentTarget.className);
-    }
   }
 });
 

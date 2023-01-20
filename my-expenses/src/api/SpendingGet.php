@@ -8,19 +8,27 @@ define ('INDEX', true);
 require 'inc/dbcon.php';
 require 'inc/base.php';
 
-if(!$stmt = $conn->prepare("UPDATE User SET Balance = Balance + ? WHERE Id = ?")){
+if(!$stmt = $conn->prepare("SELECT Category.Id, Category.Name, SUM(Transactions.Amount) as TotalAmount FROM Transactions JOIN Category ON Transactions.CategoryId = Category.Id WHERE Transactions.UserId = ? GROUP BY Category.Id")){
     die('{"error":"Prepared Statement failed on prepare","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
 }
 
-if(!$stmt -> bind_param("id", $postvars['Balance'], $postvars['Id'])){
+if(!$stmt -> bind_param("i", $postvars['UserId'])){
     die('{"error":"Prepared Statement bind failed on bind","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
 }
-$stmt -> execute();
+$stmt ->  execute();
+$result = $stmt->get_result();
 
-if($conn->affected_rows == 0) {
-    $stmt -> close();
-    die('{"error":"Prepared Statement failed on execute : no rows affected","errNo":"' . json_encode($conn -> errno) .'","mysqlError":"' . json_encode($conn -> error) .'","status":"fail"}');
+if (!$result) {
+    $response['code'] = 7;
+    $response['status'] = $api_response_code[$response['code']]['HTTP Response'];
+    $response['data'] = $conn->error;
+    deliver_response($response);
 }
+
+$response['data'] = getJsonObjFromResult($result);
+$result->free();
+$conn->close();
+deliver_JSONresponse($response);
 
 $stmt -> close();
 die('{"data":"ok","message":"Record added successfully","status":"ok"}');

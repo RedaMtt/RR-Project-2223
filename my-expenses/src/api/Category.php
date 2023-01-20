@@ -8,7 +8,7 @@ define ('INDEX', true);
 require 'inc/dbcon.php';
 require 'inc/base.php';
 
-$sql="select Vak_Student.Vak, Vak.Naam, Vak_Student.Student, Student.Voornaam FROM Vak_Student join Vak on Vak_Student.Vak = Vak.Code join Student on Vak_Student.Student = Student.StudentNummer ";
+$sql="select Name, Id FROM Category";
 
 $result = $conn -> query($sql);
 
