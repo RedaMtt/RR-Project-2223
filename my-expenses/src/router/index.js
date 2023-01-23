@@ -52,6 +52,11 @@ const routes = [
         path: 'settings',
         name: 'SettingsPage',
         component: () => import('@/views/Settings.vue')
+      },
+      {
+        path: 'settingsUpdate',
+        name: 'SettingsUpdatePage',
+        component: () => import('@/views/SettingsUpdate.vue')
       }
     ]
   }

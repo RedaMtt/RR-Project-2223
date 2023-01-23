@@ -27,12 +27,6 @@
       <ion-button href="/tabs/register" expand="" color="dark">
         <ion-text />Register<ion-text />
       </ion-button>
-      <ion-button href="/tabs/home" expand="" color="dark">
-        <ion-text />Skip<ion-text />
-      </ion-button>
-      <ion-button @Click="getUserId()" expand="" color="dark">
-        <ion-text />test<ion-text />
-      </ion-button>
     </ion-content>
   </ion-page>
 </template>

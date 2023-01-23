@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-title>Spendings</ion-title>
-
+        <ion-button color="dark" slot="end" @click="Refresh()"><ion-icon :icon="refresh"/></ion-button>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -127,7 +127,7 @@ ion-button {
 <script>
 import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonSelect, IonSelectOption } from '@ionic/vue';
-import { person, airplane, cart, car, analytics, pizza, shirt, cash, help, bookmark } from 'ionicons/icons';
+import { refresh, person, airplane, cart, car, analytics, pizza, shirt, cash, help, bookmark } from 'ionicons/icons';
 
 
 export default defineComponent({
@@ -159,6 +159,7 @@ export default defineComponent({
   },
   setup() {
     return {
+      refresh,
       person,
       airplane,
       cart,
@@ -172,6 +173,9 @@ export default defineComponent({
     }
   },
   methods: {
+    Refresh() {
+      window.location.reload();
+    }
   }
 });
 

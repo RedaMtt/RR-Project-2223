@@ -34,9 +34,6 @@
       <ion-button @Click="registerUser()" expand="" color="dark">
         <ion-text />Register<ion-text />
       </ion-button>
-      <ion-button href="/tabs/home" expand="" color="dark">
-        <ion-text />Skip<ion-text />
-      </ion-button>
     </ion-content>
   </ion-page>
 </template>
@@ -60,6 +57,7 @@ export default defineComponent({
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonItem, IonLabel, IonNote },
   methods: {
     registerUser() {
+      let self = this
       let url = baseApiAddress + "Register.php";
       opties.body = JSON.stringify({
         Username: document.getElementById("Username").value,
@@ -81,6 +79,7 @@ export default defineComponent({
           let list = responseData.data;
           if (list.length > 0) {
             alert("U bent geregistreerd");
+            self.$router.push({ path: '/loginPage' });
           } else {
             alert("regsitration failed : Probeer opnieuw");
           }

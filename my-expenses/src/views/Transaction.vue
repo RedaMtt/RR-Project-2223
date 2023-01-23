@@ -9,11 +9,6 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Tab 3</ion-title>
-        </ion-toolbar>
-      </ion-header>
 
       <ion-item>
         <ion-label position="fixed">Category</ion-label>
@@ -62,7 +57,6 @@
 import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 
-let CategoryId = document.getElementById("Category")
 let baseApiAddress = `https://electryshop.be/my-expenses/src/api/`;
 let opties = {
   method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -75,8 +69,6 @@ export default defineComponent({
   name: 'transactionPage',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage },
   mounted() {
-    
-    console.log(CategoryId.value)
     let url = 'https://electryshop.be/my-expenses/src/api/Category.php';
 
 
@@ -101,7 +93,7 @@ export default defineComponent({
   methods: {
     sendTransaction() {
       let self = this
-      if (document.getElementById("date").value.split('T')[0] != undefined && document.getElementById("amount").value != "" && CategoryId.value != 0) {
+      if (document.getElementById("date").value.split('T')[0] != undefined && document.getElementById("amount").value != "" && document.getElementById("Category").value != undefined) {
         let url = baseApiAddress + "TransactionAdd.php";
         opties.body = JSON.stringify({
           CategoryId: document.getElementById("Category").value,
@@ -110,7 +102,6 @@ export default defineComponent({
           Date: document.getElementById("date").value.split('T')[0],
           Comment: document.getElementById("comment").value
         });
-        console.log(opties);
         fetch(url, opties)
           .then(function (response) {
             return response.json();

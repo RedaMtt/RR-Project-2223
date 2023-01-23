@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-title slot="start">Transactions</ion-title>
-        <ion-button color="dark" slot="end" @click="fetchData()"><ion-icon :icon="refresh" /></ion-button>
+        <ion-button color="dark" slot="end" @click="Refresh()"><ion-icon :icon="refresh" /></ion-button>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -127,7 +127,7 @@ export default defineComponent({
   },
   methods:
   {
-    fetchData() {
+    Refresh() {
       window.location.reload();
     },
     test() {

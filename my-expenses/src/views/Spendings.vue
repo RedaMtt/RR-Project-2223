@@ -2,7 +2,8 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Home</ion-title>
+        <ion-title slot="start">Home</ion-title>
+        <ion-button color="dark" slot="end" @click="Refresh()"><ion-icon :icon="refresh"/></ion-button>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -54,6 +55,7 @@
 import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
 import { Chart } from 'chart.js/auto';
+import { refresh } from 'ionicons/icons';
 
 let opties = {
   method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -70,6 +72,11 @@ let TotalSpent = 0.00;
 export default defineComponent({
   name: 'Tab1Page',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage },
+  setup() {
+    return {
+      refresh
+    }
+  },
   mounted() {
 
 
@@ -178,8 +185,8 @@ export default defineComponent({
 
   },
   methods: {
-    test() {
-
+    Refresh() {
+      window.location.reload();
     }
   }
 });

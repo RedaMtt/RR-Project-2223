@@ -12,7 +12,7 @@
 
       <ion-item counter="true">
         <ion-label position="fixed">Username</ion-label>
-        <ion-label position="fixed" v-model="userIds"></ion-label>
+        <ion-label position="fixed" id="userIds" v-model="userIds"></ion-label>
       </ion-item>
 
       <ion-item counter="true">
@@ -21,10 +21,6 @@
       </ion-item>
 
       <ion-button class="sendBtn" @click="sendIncome()">
-        Send
-      </ion-button>
-
-      <ion-button class="sendBtn" @click="test()">
         Send
       </ion-button>
 
@@ -68,7 +64,7 @@ export default defineComponent({
   name: 'incomePage',
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage },
   mounted(){
-    this.userIds.value = localStorage.getItem('UserName')
+    document.getElementById("userIds").innerHTML = localStorage.getItem('UserName')
   },
   setup() {
     return {
